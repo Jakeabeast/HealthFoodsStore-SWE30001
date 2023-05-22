@@ -6,25 +6,13 @@ public class CartItem {
     private double unitPrice;
     private int quantity;
 
-<<<<<<< HEAD
     //Constructor.
-=======
-    //Constructor
-    public CartItem(Product product, int qty) {
-        itemId = product.getID();
-        description = product.getDescription();
-        unitPrice = product.getPrice();
-        quantity = qty;
-    }
-
->>>>>>> 400dee7cea9cfa420ab52766341fc76205ccf3c5
     public CartItem(String _itemId, String _description, double _unitPrice, int _qty) {
         itemId = _itemId;
         description = _description;
         unitPrice = _unitPrice;
         quantity = _qty;
     }
-<<<<<<< HEAD
     
     //Constructor 2 to update product quantity
     public CartItem(String desc,  int qty) {        
@@ -32,8 +20,6 @@ public class CartItem {
         quantity = qty;
     }
     
-=======
->>>>>>> 400dee7cea9cfa420ab52766341fc76205ccf3c5
 
     public String getItemId() {
         return itemId;
