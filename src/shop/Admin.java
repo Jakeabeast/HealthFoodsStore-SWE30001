@@ -1,23 +1,32 @@
 package shop;
 
+import org.json.JSONObject;
+
 public class Admin extends Account {
 
     public Admin(){}
 
-    public Admin(String _accountName, String _email, String _phoneNo) {
-        super(_accountName, _email, _phoneNo);
+    public Admin(String _accountName, String _password, String _email, String _phoneNo) throws Exception {
+        super(_accountName, _password, _email, _phoneNo);
         setAccountType(AccountType.ADMIN);
     }
 
-    public static Admin loadFromDatabse(String userID) {
-        Admin acc = new Admin();
-
-        // database stuff goes here
-
-        return acc;
+    /**
+	 * Get a JSONObject of the Admin data
+	 * @return	JSONObject containing account data
+	 */
+    public JSONObject toJSON() {
+        return super.getAccountJSON();
     }
 
-    public void saveToDatabase() {
-        // save details to database
+    /**
+	 * Get a new Admin object with the ADMIN AccountType
+     * @param	json a JSONObject containing account data
+	 * @return	an Admin object
+	 */
+    public static Admin fromJSON(JSONObject json) {
+        Admin adm = new Admin();
+        adm.setAccountType(AccountType.ADMIN);
+        return adm;
     }
 }
