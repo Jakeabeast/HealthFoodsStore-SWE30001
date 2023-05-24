@@ -16,7 +16,7 @@ public class ReadTxtFile {
         try {
             //File productsFileObj = new File("Products.txt");
         
-            Scanner fileReader = new Scanner(new File("HealthFoodsStore-SWE30001/Products.txt"));
+            Scanner fileReader = new Scanner(new File("Products.txt"));
             fileReader.useDelimiter("-|\n");
             while (fileReader.hasNextLine()) {
 
