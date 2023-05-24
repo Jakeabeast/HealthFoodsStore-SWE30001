@@ -11,14 +11,6 @@ public class ShoppingCart {
     public ShoppingCart() {
         cart = new ArrayList<CartItem>();
     }    
-
-	    
-    //Get list of cart items
-    public ArrayList<CartItem> getCart() {
-        //returns the cart to the client
-        return cart;
-    }
-
 	    
     //Clears up the cart
     public void removeAllCartItems() {        
@@ -171,13 +163,13 @@ public class ShoppingCart {
     }
     
   //Display shopping cart
-    public void displayCart(ShoppingCart shopCart ) {
+    public String displayCart() {
         //Cart list populated
-        ArrayList<CartItem> ciList = shopCart.getCart();
+        ArrayList<CartItem> ciList = cart;
+        String str = "";
         //Check if there's any item in the shopping cart
-        if (ciList.isEmpty()) {
-            System.out.println("The shopping cart is empty!\n");            
-            return;
+        if (ciList.isEmpty()) {           
+            return "The shopping cart is empty!\n";
         }
         System.out.println("--------------------------------------");
         System.out.println("The shopping cart has the following items:");
@@ -187,17 +179,19 @@ public class ShoppingCart {
             double unitPrice = ci.getUnitPrice();
             double quantity = ci.getQuantity();
             double subTotal = unitPrice * quantity;
-            System.out.println("Item: " + ci.getDescription()
+            str += ("Item: " + ci.getDescription()
                     + "\tUnit Price: $" + ci.getUnitPrice()
                     + "\tQuantity: " + ci.getQuantity()
-                    + "\tSub-Total: $" + subTotal);            
+                    + "\tSub-Total: $" + subTotal + "\n");            
             total = total + subTotal;
         }
-        System.out.println("--------------------------------------");
-        System.out.println("Total price: " + total);
-        System.out.println("---------End of Shopping Cart---------\n");
+        str += ("--------------------------------------\n");
+        str += ("Total price: $" + total + "\n\n");
+        str += ("---------End of Shopping Cart---------\n");
+
+        return str;
     }
-    
+
   //Add item to the shopping cart 
     public void addCart(CartItem item) {
         

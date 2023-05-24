@@ -19,13 +19,8 @@ public class Invoice {
         str += String.format("Customer: %s\n", order.get_customerDetails().get("name")); 
         str += String.format("Address: %s\n", order.get_customerDetails().get("address")); 
         str += String.format("Order Date: %s\n\n", order.get_orderDate()); 
-        str += formatPurchases();
-        str += "-------------------------\n\n";
+        str += order.get_ShoppingCart().displayCart();
         return str;
-    }
-
-    private String formatPurchases() {
-        return "loop[item: price] \n total price"; //*** depends on how Item is implemented
     }
 
     private void sendEmail(String email) {
