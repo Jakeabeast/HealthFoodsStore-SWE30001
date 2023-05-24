@@ -5,9 +5,9 @@ public class Catalogue
 {
     private ArrayList<Product> _products;  
 
-    public Catalogue()
+    public Catalogue(ArrayList<Product> products)
     {
-        _products = new ArrayList<Product>();
+        _products = products;
     }
     
     // search for an product using the name
@@ -25,7 +25,7 @@ public class Catalogue
     }
     
     //search for an product using the category type
-    public Product SearchByCategory(Category searchCategory)
+    public Product SearchByCategory(String searchCategory)
     {
     	for(Product p: _products)
     	{
@@ -48,10 +48,12 @@ public class Catalogue
     public static void main(String[] args)
     {
   //-------------------Test Create Product--------------------
-    	Catalogue storeCatalogue = new Catalogue();
-    	Product product1 = new Product("Prod00001","1L Whole Milk",Category.Dairy,"no reduced fat content",4.50);
-    	Product product2 = new Product("Prod00002","Strawberries pack",Category.Fruit,"packet of strawberries",5.00);
-    	Product product3 = new Product("Prod00003","250ml Chocolate Milk",Category.Dairy,"250ml bottle",3.50);
+		ReadTxtFile file = new ReadTxtFile();
+		ArrayList<Product> products = file.ReadProducts();
+    	Catalogue storeCatalogue = new Catalogue(products);
+    	Product product1 = new Product("Prod00001","1L Whole Milk","Dairy","no reduced fat content",4.50);
+    	Product product2 = new Product("Prod00002","Strawberries pack","Fruit","packet of strawberries",5.00);
+    	Product product3 = new Product("Prod00003","250ml Chocolate Milk","Dairy","250ml bottle",3.50);
     	
     	System.out.println("The following products were created:");
     	System.out.println("<-------------------------------------->");
@@ -71,7 +73,7 @@ public class Catalogue
     	
     	System.out.println("<-------------------------------------->");
     	System.out.println("The Following are items in the Category Fruit:");
-    	storeCatalogue.SearchByCategory(Category.Fruit);
+    	storeCatalogue.SearchByCategory("Fruit");
     	
     	
     }

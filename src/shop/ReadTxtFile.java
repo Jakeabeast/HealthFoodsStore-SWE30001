@@ -15,6 +15,7 @@ public class ReadTxtFile {
         
         try {
             //File productsFileObj = new File("Products.txt");
+        
             Scanner fileReader = new Scanner(new File("Products.txt"));
             fileReader.useDelimiter("-|\n");
             while (fileReader.hasNextLine()) {
@@ -36,14 +37,5 @@ public class ReadTxtFile {
         }
         
         return catalogue;
-    }
-
-    public String ReadAccount(Object AccountTxtFilelocation) {
-        //file.open(AccountTxtFileLocation)
-        //file.read
-        //search or whatever
-        //file . close
-        String productDetails = "product";
-        return productDetails;
     }
 }
