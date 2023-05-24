@@ -1,6 +1,9 @@
 package shop;
 
 import java.util.Scanner;
+import java.util.*;
+
+import java.io.*;
 
 public class Menu {	
 	
@@ -10,8 +13,12 @@ public class Menu {
 	
 	
 	public static void main(String[] args) {
-		
-		Catalogue catalogue = new Catalogue(ReadProducts());
+
+
+
+		ReadTxtFile file = new ReadTxtFile();
+		ArrayList<Product> products = file.ReadProducts();
+		Catalogue catalogue = new Catalogue(products);
 
 		int userSelection;
 		

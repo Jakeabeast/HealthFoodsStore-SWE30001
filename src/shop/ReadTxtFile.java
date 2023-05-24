@@ -20,7 +20,6 @@ public class ReadTxtFile {
             fileReader.useDelimiter("-|\n");
             while (fileReader.hasNextLine()) {
 
-                
                 String productID = fileReader.next();
                 String productName = fileReader.next();
                 String productCatagory = fileReader.next();
