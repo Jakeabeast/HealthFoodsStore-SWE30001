@@ -25,7 +25,7 @@ public class ShipmentOrder {
         str += String.format("Order Number: %s\n", order.get_orderNumber()); 
         str += String.format("Shipping Date: %s\n", shipmentDate); 
         str += String.format("Address: %s\n", order.get_customerDetails().get("address")); 
-        str += String.format("Items: %s\n", order.get_productList()); //*** list out items 
+        str += String.format("Items\n %s\n", order.get_ShoppingCart().displayCart()); 
         return str;
     }
 

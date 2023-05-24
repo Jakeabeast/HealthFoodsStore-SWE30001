@@ -23,7 +23,7 @@ public class Menu {
 		
 		
 		//Execute login 
-		menu.login(); 
+		//***menu.login(); 
 		//Test to validate displayShopping cart
 		shopCart = menu.addItemsShoppingCart();
 		
@@ -36,7 +36,9 @@ public class Menu {
 				System.out.println("1. Browse Catalogue in construction");
 				break;
 			case 2:					
-				shoppingCart.displayCart(shopCart);
+				System.out.println(shopCart.displayCart());
+				if (shopCart.isCartEmpty()) { break; }
+
 				menu.manageShoppingCart(shopCart);
 				break;			
 			case 3:
@@ -158,7 +160,7 @@ public class Menu {
         CartItem item2 = new CartItem("000002", "oat milk", 3.50, 1);
         CartItem item3 = new CartItem("000003", "multigrain bread", 5.50, 2);
         CartItem item4 = new CartItem("000004", "strawberries", 6.50, 3);
-        CartItem item5 = new CartItem("000005", "somked salmon", 11.50, 1);      
+        CartItem item5 = new CartItem("000005", "smoked salmon", 11.50, 1);      
         
         
         //Add items to the cart

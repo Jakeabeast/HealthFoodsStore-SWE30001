@@ -9,7 +9,8 @@ public class Order {
     private String orderStatus; //used for Database
     private LocalDate orderDate;
     private Map<String, String> customerDetails = new HashMap<String, String>();
-    private ArrayList<CartItem> productList;
+    private ShoppingCart shoppingCart;
+
 
     public Order(Customer customer, ShoppingCart cart)
     {
@@ -18,13 +19,13 @@ public class Order {
         orderDate = LocalDate.now();
         customerDetails.put("name", customer.getAccountName());
         customerDetails.put("address", customer.getShippingAddress());
-        productList = cart.getCart(); //*** get item from cart function
+        shoppingCart = cart; 
     }
 
     public int get_orderNumber() { return orderNumber; }
     public LocalDate get_orderDate() { return orderDate; }
     public Map<String, String> get_customerDetails() { return customerDetails; }
-    public ArrayList<CartItem> get_productList() { return productList; }
+    public ShoppingCart get_ShoppingCart() { return shoppingCart; }
 
     public void completeOrder() {
         orderStatus = "Order Complete";
