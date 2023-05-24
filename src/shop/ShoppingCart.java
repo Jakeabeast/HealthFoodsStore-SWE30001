@@ -34,7 +34,7 @@ public class ShoppingCart {
         //checks whether there is a CartItem object in the Shopping Cart 
         //having the same itemId as that of  cartItem
         try {
-            if (cart.isEmpty()) {
+            if (isCartEmpty()) {
 
                 //Add item to the cart 
                return result = cart.add(cartItem);
@@ -76,13 +76,17 @@ public class ShoppingCart {
 
     }
 
+    public boolean isCartEmpty()
+    {
+        return cart.isEmpty();
+    }
 	   
     //Delete an user record searched by item id
     public boolean deleteCartItem(String itemId) {
 
         boolean result = false;
 
-        if (!cart.isEmpty()) {
+        if (!isCartEmpty()) {
             try {
                 for (CartItem c : cart) {
                     //Checks if each item in the cart list has the item name
@@ -99,7 +103,6 @@ public class ShoppingCart {
                 result = false;
             }
         }
-
         return result;
     }
 
@@ -109,7 +112,7 @@ public class ShoppingCart {
 
         boolean result = false;
 
-        if (!cart.isEmpty()) {
+        if (!isCartEmpty()) {
             try {
 
                 for (CartItem c : cart) {
@@ -142,7 +145,7 @@ public class ShoppingCart {
 
         boolean result = false;
 
-        if (!cart.isEmpty()) {
+        if (!isCartEmpty()) {
             try {
 
                 for (CartItem c : cart) {
@@ -185,9 +188,9 @@ public class ShoppingCart {
             double quantity = ci.getQuantity();
             double subTotal = unitPrice * quantity;
             System.out.println("Item: " + ci.getDescription()
-                    + "\tUnit Price: " + ci.getUnitPrice()
+                    + "\tUnit Price: $" + ci.getUnitPrice()
                     + "\tQuantity: " + ci.getQuantity()
-                    + "\tSub-Total: " + subTotal);            
+                    + "\tSub-Total: $" + subTotal);            
             total = total + subTotal;
         }
         System.out.println("--------------------------------------");

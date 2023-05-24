@@ -5,19 +5,22 @@ public class Invoice {
 
     public Invoice(Order _order) {
         order = _order;
+        updateDatabase();
     }
     
     public void emailOrder(Customer buyer) {
-        System.out.println(buyer.getEmail() + formatOrder()); //For simplicity
+        sendEmail(buyer.getEmail());
+        System.out.println(formatOrder() + "Order sent to: " + buyer.getEmail()); //For simplicity
     }
 
     private String formatOrder() {
-        String str = "";
+        String str = "-------------------------\n";
         str += String.format("Order Number: %s\n", order.get_orderNumber()); 
         str += String.format("Customer: %s\n", order.get_customerDetails().get("name")); 
         str += String.format("Address: %s\n", order.get_customerDetails().get("address")); 
-        str += String.format("Order Date: %s\n", order.get_orderDate()); 
+        str += String.format("Order Date: %s\n\n", order.get_orderDate()); 
         str += formatPurchases();
+        str += "-------------------------\n\n";
         return str;
     }
 
@@ -25,6 +28,9 @@ public class Invoice {
         return "loop[item: price] \n total price"; //*** depends on how Item is implemented
     }
 
+    private void sendEmail(String email) {
+        //sends email to customer using formatOrder()
+    }
     private void updateDatabase() {
         //sends string query to Database class to store in database
     }

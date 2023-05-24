@@ -4,19 +4,22 @@ import java.time.LocalDate;
 
 public class ShipmentOrder {
     private Order order;
-    private String status; //used for Database??
+    private String status; //used for Database
     private LocalDate shipmentDate; 
 
     public ShipmentOrder(Order _order) {
         order = _order;
         status = "Pending";
         shipmentDate = LocalDate.now();
+        updateDatabase();
     }
     
-    public void emailOrder(Admin staff) {
-        System.out.println(staff.getEmail() + formatOrder()); //For simplicity
+    public void sendOrder(Admin staff) {
+        sendEmail(staff.getEmail());
+        System.out.println("Shipment Order Sent\n"); //For simplicity
     }
 
+    //Used for sending email (not displayed to customer)
     private String formatOrder() {
         String str = "";
         str += String.format("Order Number: %s\n", order.get_orderNumber()); 
@@ -33,6 +36,11 @@ public class ShipmentOrder {
         else {
             System.out.println("Unknown Status");
         }     
+    }
+
+    private void sendEmail(String email) {
+           //sends email to staff using formatOrder()
+           String order = formatOrder();
     }
 
     private void updateDatabase() {

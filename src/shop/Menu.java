@@ -3,8 +3,6 @@ package shop;
 import java.util.Scanner;
 import java.util.*;
 
-import java.io.*;
-
 public class Menu {	
 	
 	//Scanner instance to read user input
@@ -13,9 +11,6 @@ public class Menu {
 	
 	
 	public static void main(String[] args) {
-
-
-
 		ReadTxtFile file = new ReadTxtFile();
 		ArrayList<Product> products = file.ReadProducts();
 		Catalogue catalogue = new Catalogue(products);
@@ -26,14 +21,14 @@ public class Menu {
 		Menu menu = new Menu();	
 		ShoppingCart shopCart = new ShoppingCart();
 		
+		
 		//Execute login 
-		menu.login();
+		menu.login(); 
 		//Test to validate displayShopping cart
 		shopCart = menu.addItemsShoppingCart();
 		
 		do {			
-			
-			userSelection = menu.menuSelection();
+			userSelection = menu.menuSelection(); 
 			
 			switch(userSelection) {
 				
@@ -45,22 +40,47 @@ public class Menu {
 				menu.manageShoppingCart(shopCart);
 				break;			
 			case 3:
+				/* 
+				if (shopCart.isCartEmpty())
+				{
+					System.out.println("There are no items in cart to checkout");
+					break;
+				}
+				else
+				{
+					System.out.println("[Payment assumably successful]")
+					Order myOrder = new Order(customer, shopCart);  //***and chance James can add the current customer account here?
+					ShipmentOrder shipment = new ShipmentOrder(myOrder, currentOrderTakingAdmin); //***any chance James can add admin account here?
+					shipment.sendOrder();
+					Invoice invoice = new Invoice(myOrder, customer)
+
+					do {
+						userSelection = invoiceSelection()
+						if(userSelection = 1) 
+						{
+							invoice.emailOrder();
+						}
+						else if(userSelection = 2)
+						{
+							//continue
+						}
+					}
+					while(userSelection != 1 || userSelection != 2);
+
+					System.out.println("Checkout Complete\n");
+				}
+				*/
 				System.out.println("1. Checkout in construction");
 				break;
 			case 4:
-				System.out.println("1. Request invoice in construction");
-				break;
-			case 5:
-				System.out.println("Good Bye! Thank you for shopping with us");
+				System.out.println("Good Bye! Thank you for shopping with us!");
 				break;
 			default:
 				System.out.println("Invalid option, please try again\n");
 				break;
-				
 			}
 		}
-			
-		while(userSelection != 5);
+		while(userSelection != 4);
 		sc.close();
 		
 	}
@@ -72,22 +92,34 @@ public class Menu {
 		
 		int optionSelected = 0;				
 			
-		System.out.println("Welcome to All Your Healthy Foods store!");			
+		System.out.println("Welcome to All Your Healthy Foods Store!");			
 		System.out.println("---------------------------------------\n");
 		
 		System.out.println("Menu:\n ");
 		System.out.println("1. Browse Catalogue");
 		System.out.println("2. Display shopping cart");
 		System.out.println("3. Checkout");
-		System.out.println("4. Request Invoice");
-		System.out.println("5. Logout");
+		System.out.println("4. Logout");
 		
-		System.out.print("Select an option: \n");
+		System.out.print("Select an option: ");
 		
 		optionSelected = sc.nextInt();
-			
+		System.out.println("");
 			
 		return optionSelected;
+	}
+
+	public int invoiceSelection() {
+		int optionSelected = 0;
+
+		System.out.println("Would you an invoice to be sent to your email?");
+		System.out.println("1. Yes");
+		System.out.println("2. No");
+
+		optionSelected = sc.nextInt();
+
+		return optionSelected;
+
 		
 	}
 	
@@ -109,6 +141,7 @@ public class Menu {
 		
 		if ("user".equals(userName) && "password".equals(password)) {
 	        System.out.println("User successfully logged-in\n ");
+			//create customer here***
 	    } else {
 	        System.out.println("Invalid userName or password please try again\n");
 	        login();
@@ -192,5 +225,11 @@ public class Menu {
 		
 	}    
     
+	public void manageOrder(Customer customer, ShoppingCart cart)
+	{
+
+		Order order = new Order(customer, cart);
+
+	}
 
 }
