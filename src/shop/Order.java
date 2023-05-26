@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Order {
 
+	Random random = new Random();   
     private int orderNumber;
     private String orderStatus; //used for Database
     private LocalDate orderDate;
@@ -14,7 +15,7 @@ public class Order {
 
     public Order(Customer customer, ShoppingCart cart)
     {
-        orderNumber = 1; //check database, increment from history of order in database
+        orderNumber = random.nextInt(50); //check database, increment from history of order in database
         orderStatus = "Order placed"; //Assuming payment worked
         orderDate = LocalDate.now();
         customerDetails.put("name", customer.getAccountName());
@@ -22,7 +23,11 @@ public class Order {
         shoppingCart = cart; 
     }
 
-    public int get_orderNumber() { return orderNumber; }
+    public Order() {
+		
+	}
+
+	public int get_orderNumber() { return orderNumber; }
     public LocalDate get_orderDate() { return orderDate; }
     public Map<String, String> get_customerDetails() { return customerDetails; }
     public ShoppingCart get_ShoppingCart() { return shoppingCart; }
@@ -42,6 +47,13 @@ public class Order {
     {
         Invoice invoice = new Invoice(this);
         return invoice;
+    }
+    
+    public void displayOrderDetails(Order order)
+    {
+    	shoppingCart = order.get_ShoppingCart();
+    	shoppingCart.displayCart(shoppingCart);
+       
     }
     
     private void updateDatabase() {

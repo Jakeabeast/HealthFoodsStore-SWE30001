@@ -6,8 +6,13 @@ import java.util.*;
 public class Menu {	
 	
 	//Scanner instance to read user input
-	public static Scanner sc = new Scanner(System.in);
+	static Scanner sc = new Scanner(System.in);
+	
+	//Static class instances
 	static ShoppingCart shoppingCart = new ShoppingCart();
+	static Customer customer = new Customer("Jhon", "44444", "jhon@hotmail.com", "0406815854", "23 park st, St Kilda VIC 3120");
+	static Admin admin = new Admin ("Carl", "554444", "carl@hotmail.com", "458454154");
+	static Invoice invoice = new Invoice();
 	
 	
 	public static void main(String[] args) {
@@ -23,7 +28,7 @@ public class Menu {
 		
 		
 		//Execute login 
-		//***menu.login(); 
+		menu.login(); 
 		//Test to validate displayShopping cart
 		shopCart = menu.addItemsShoppingCart();
 		
@@ -35,44 +40,15 @@ public class Menu {
 			case 1:
 				System.out.println("1. Browse Catalogue in construction");
 				break;
-			case 2:					
-				System.out.println(shopCart.displayCart());
-				if (shopCart.isCartEmpty()) { break; }
-
+			case 2:	
+				
+				shoppingCart.displayCart(shopCart);	
 				menu.manageShoppingCart(shopCart);
 				break;			
-			case 3:
-				/* 
-				if (shopCart.isCartEmpty())
-				{
-					System.out.println("There are no items in cart to checkout");
-					break;
-				}
-				else
-				{
-					System.out.println("[Payment assumably successful]")
-					Order myOrder = new Order(customer, shopCart);  //***and chance James can add the current customer account here?
-					ShipmentOrder shipment = new ShipmentOrder(myOrder, currentOrderTakingAdmin); //***any chance James can add admin account here?
-					shipment.sendOrder();
-					Invoice invoice = new Invoice(myOrder, customer)
-
-					do {
-						userSelection = invoiceSelection()
-						if(userSelection = 1) 
-						{
-							invoice.emailOrder();
-						}
-						else if(userSelection = 2)
-						{
-							//continue
-						}
-					}
-					while(userSelection != 1 || userSelection != 2);
-
-					System.out.println("Checkout Complete\n");
-				}
-				*/
-				System.out.println("1. Checkout in construction");
+			case 3:				 
+				menu.CheckOut(shopCart);
+				
+				//System.out.println("1. Checkout in construction");
 				break;
 			case 4:
 				System.out.println("Good Bye! Thank you for shopping with us!");
@@ -106,21 +82,40 @@ public class Menu {
 		System.out.print("Select an option: ");
 		
 		optionSelected = sc.nextInt();
+		sc.nextLine();
 		System.out.println("");
 			
 		return optionSelected;
 	}
 
-	public int invoiceSelection() {
-		int optionSelected = 0;
+	//Prints out invoice and send it to customer's email
+	public void requestInvoice(Order myOrder, Customer customer) {
+		
+		String optionSelected;
 
-		System.out.println("Would you an invoice to be sent to your email?");
-		System.out.println("1. Yes");
-		System.out.println("2. No");
+		System.out.println("Would you like an invoice to be sent to your email? (yes/no)");	
+		optionSelected = sc.nextLine();
 
-		optionSelected = sc.nextInt();
-
-		return optionSelected;
+		switch(optionSelected) {
+		
+		case "yes":
+							
+			System.out.println("***********Invoice Order " + myOrder.get_orderNumber() + "**************");
+			
+			//Email order invoice details  to user email
+			invoice.emailInvoice(customer, myOrder);			
+							
+			break;
+			
+		case "no":		
+			//Return to main menu
+			this.menuSelection();
+			break;
+			
+		default:
+			System.out.println("Invalid option, please try again\n");
+			break;
+		}
 
 		
 	}
@@ -140,7 +135,7 @@ public class Menu {
 		System.out.print("Enter password => ");
 		password = sc.nextLine();			
 		
-		
+		//Check if password match with saved information
 		if ("user".equals(userName) && "password".equals(password)) {
 	        System.out.println("User successfully logged-in\n ");
 			//create customer here***
@@ -205,7 +200,9 @@ public class Menu {
 			itemQuantity = sc.nextInt();
 			sc.nextLine();
 			
-			CartItem item1 = new CartItem(itemSelected, itemQuantity);			
+			//Create new item
+			CartItem item1 = new CartItem(itemSelected, itemQuantity);
+			//Update item with new quantity
 			shopCart.updateCartQty(item1);			
 			break;
 		case 2:	
@@ -213,9 +210,11 @@ public class Menu {
 			System.out.print("Select the item you want to remove: \n");	
 			itemSelected = sc.nextLine().toLowerCase();
 			
+			//Delete selected item from shopping cart list
 			shopCart.deleteCart(itemSelected);
 			break;
-		case 3:					
+		case 3:		
+			//Return to main menu
 			this.menuSelection();
 			break;
 		default:
@@ -227,11 +226,59 @@ public class Menu {
 		
 	}    
     
-	public void manageOrder(Customer customer, ShoppingCart cart)
-	{
-
-		Order order = new Order(customer, cart);
-
+	
+	
+	public void CheckOut(ShoppingCart shopCart) {
+		
+		String optionSelected;
+		
+		//Check if cart is empty
+		if (shopCart.isCartEmpty())
+		{
+			System.out.println("There are no items in cart to checkout\n");			
+		}
+		else
+		{
+			//Display current items on shopping cart
+			shoppingCart.displayCart(shopCart);
+			System.out.println("Would you like to confirm your order? (yes/no)");
+			optionSelected = sc.nextLine().toLowerCase();
+			
+			
+			switch(optionSelected) {
+			
+			case "yes":
+								
+				System.out.println("***********Payment successful**************");
+				System.out.println("Your pre-saved payment details has been accepted\n");
+				
+				//Creates new order record with customer and shopping cart items purchased
+				Order myOrder = new Order(customer, shopCart);
+				System.out.println("Order confirmed Order ID: " + myOrder.get_orderNumber());
+				
+				//Creates new shipment record from order confirmed
+				ShipmentOrder shipment = new ShipmentOrder(myOrder);
+				System.out.println("\nYour order will be delivered in 2 - 3 business days!");
+				
+				//Send address information and notification to admin to process shipment
+				shipment.sendOrder(admin);
+				
+				//Request invoice from confirmed order
+				this.requestInvoice(myOrder, customer);				
+				break;
+				
+			case "no":	
+				//Return to main menu
+				this.menuSelection();
+				break;
+				
+			default:
+				System.out.println("Invalid option, please try again\n");
+				break;
+			}
+				
+		}
+		
 	}
 
 }

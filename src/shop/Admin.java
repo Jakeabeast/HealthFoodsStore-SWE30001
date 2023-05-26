@@ -6,7 +6,7 @@ public class Admin extends Account {
 
     public Admin(){}
 
-    public Admin(String _accountName, String _password, String _email, String _phoneNo) throws Exception {
+    public Admin(String _accountName, String _password, String _email, String _phoneNo) {
         super(_accountName, _password, _email, _phoneNo);
         setAccountType(AccountType.ADMIN);
     }

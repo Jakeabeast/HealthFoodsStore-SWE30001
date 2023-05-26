@@ -16,7 +16,7 @@ public class ShipmentOrder {
     
     public void sendOrder(Admin staff) {
         sendEmail(staff.getEmail());
-        System.out.println("Shipment Order Sent\n"); //For simplicity
+        System.out.println("Shipment Order details sent to our staff\n"); //For simplicity
     }
 
     //Used for sending email (not displayed to customer)
@@ -25,7 +25,7 @@ public class ShipmentOrder {
         str += String.format("Order Number: %s\n", order.get_orderNumber()); 
         str += String.format("Shipping Date: %s\n", shipmentDate); 
         str += String.format("Address: %s\n", order.get_customerDetails().get("address")); 
-        str += String.format("Items\n %s\n", order.get_ShoppingCart().displayCart()); 
+        str += String.format("Items\n %s\n", order.get_ShoppingCart()); 
         return str;
     }
 

@@ -8,9 +8,10 @@ public class Customer extends Account {
 
     public Customer(){}
 
-    public Customer(String _accountName, String _password, String _email, String _phoneNo) throws Exception {
+    public Customer(String _accountName, String _password, String _email, String _phoneNo, String _address)  {
         super(_accountName, _password, _email, _phoneNo);
         setAccountType(AccountType.CUSTOMER);
+        setShippingAddress(_address);
     }
 
     /**

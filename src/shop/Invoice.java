@@ -3,24 +3,30 @@ package shop;
 public class Invoice {
     private Order order;
 
+    public Invoice() { 
+    	
+    	order = new Order();
+    }
+    
     public Invoice(Order _order) {
         order = _order;
         updateDatabase();
     }
     
-    public void emailOrder(Customer buyer) {
+    public void emailInvoice(Customer buyer, Order order) {
         sendEmail(buyer.getEmail());
-        System.out.println(formatOrder() + "Order sent to: " + buyer.getEmail()); //For simplicity
+        formatInvoice(order);
+        System.out.println("Invoice sent to: " + buyer.getEmail() + "\n"); //For simplicity
     }
 
-    private String formatOrder() {
-        String str = "-------------------------\n";
-        str += String.format("Order Number: %s\n", order.get_orderNumber()); 
-        str += String.format("Customer: %s\n", order.get_customerDetails().get("name")); 
-        str += String.format("Address: %s\n", order.get_customerDetails().get("address")); 
-        str += String.format("Order Date: %s\n\n", order.get_orderDate()); 
-        str += order.get_ShoppingCart().displayCart();
-        return str;
+    private void formatInvoice(Order order) {
+    	
+    	System.out.println("Order Number: " +  order.get_orderNumber() + "\n"); 
+    	System.out.println("Order Date: " + order.get_orderDate() + "\n"); 
+    	System.out.println("Customer: " + order.get_customerDetails().get("name") + "\n"); 
+    	System.out.println("Address: " + order.get_customerDetails().get("address") + "\n");    	
+    	order.displayOrderDetails(order);
+        
     }
 
     private void sendEmail(String email) {
