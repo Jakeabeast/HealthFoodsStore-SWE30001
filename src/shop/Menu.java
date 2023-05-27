@@ -312,7 +312,7 @@ public class Menu {
     	
     	System.out.println("---------------------------------------\n");
 		
-		System.out.println("Manage Shopping Cart:\n ");
+		System.out.println("Catalogue Search Menu:\n ");
 		System.out.println("1.Search By Name\n");
 		System.out.println("2.Search By Category\n");
 		System.out.println("3.Back to Main Menu\n");
