@@ -153,7 +153,7 @@ public class Menu {
 			Account account = Account.getAccountByEmail(userEmail);
 			//Check if password match with saved information
 			if (account.checkPassword(password)) {
-	        	System.out.println("User successfully logged-in\n ");
+	        	System.out.printf("Welcome %s.\n\n", account.getAccountName());
 				return account;
 				
 	    	} else {
