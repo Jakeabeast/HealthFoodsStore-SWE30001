@@ -29,10 +29,10 @@ public class Catalogue
     {
     	for(Product p: _products)
     	{
-    		if(p.getCategory()== searchCategory)
+    		if(p.getCategory().contains(searchCategory)) //changed from "== searchCategory" - no longer using Enum
     		{
     			p.printProduct();
-    			return p;
+    			//return p;
     		}
     	}
     	return null; // product not found
@@ -72,8 +72,8 @@ public class Catalogue
     	
     	
     	System.out.println("<-------------------------------------->");
-    	System.out.println("The Following are items in the Category Fruit:");
-    	storeCatalogue.SearchByCategory("Fruit");
+    	System.out.println("The Following are items in the Category Dairy:");
+    	storeCatalogue.SearchByCategory("Dairy");
     	
     	
     }

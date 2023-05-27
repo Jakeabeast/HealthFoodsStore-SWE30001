@@ -38,7 +38,7 @@ public class Menu {
 			switch(userSelection) {
 				
 			case 1:
-				System.out.println("1. Browse Catalogue in construction");
+				menu.SearchCatalogue(catalogue);
 				break;
 			case 2:	
 				
@@ -280,5 +280,46 @@ public class Menu {
 		}
 		
 	}
+	
+	public void SearchCatalogue(Catalogue shopCatalogue)
+    {
+    	int optionSelected = 0;
+    	String searchTerm = "";
+    	String searchCategory = "";
+    	
+    	
+    	System.out.println("---------------------------------------\n");
+		
+		System.out.println("Manage Shopping Cart:\n ");
+		System.out.println("1.Search By Name\n");
+		System.out.println("2.Search By Category\n");
+		System.out.println("3.Back to Main Menu\n");
+		
+		System.out.println("Select A Search Method: \n");
+		optionSelected = sc.nextInt();
+    	sc.nextLine();
+    	
+    	switch(optionSelected)
+    	{
+    	case 1:
+    		System.out.println("What is the Name of the Product you want to Search: \n");
+    		searchTerm = sc.nextLine();
+    		shopCatalogue.SearchByName(searchTerm);
+    	break;
+    	
+    	case 2:
+    		System.out.println("What Category would you like to Search For: \n");
+    		searchCategory = sc.nextLine();
+    		shopCatalogue.SearchByCategory(searchCategory);
+    		
+    	case 3:					
+			this.menuSelection();
+			break;
+			
+		default:
+			System.out.println("Invalid option, please try again\n");
+			break;
+    	}
+    }
 
-}
+} //end menu class
