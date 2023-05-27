@@ -1,1 +1,3 @@
 {"accountName":"James","accountType":0,"shippingAddress":"","userID":"3a4f12d9-df9b-47c1-9e8f-3f82adb90dc5","email":"103641415@student.swin.edu.au","phoneNo":"000","passwordHash":"$2a$13$B2zTKn3j9Y5YXyV9.g4Q9OcPTaDBjtiiWOqEA67pBGldNJc4Ro.r."}
+{"accountName":"Jhon","accountType":0,"shippingAddress":"23 park st, St Kilda VIC 3120","userID":"63dafaec-0df0-4c58-9f3e-e41ad1194e37","email":"jhon@hotmail.com","phoneNo":"0406815854","passwordHash":"$2a$13$/gbFa72wtJ0ErCt165iD7uWdipy.MLRVrS.h/2xdXNs0CqlF0HCxO"}
+{"accountName":"Carl","accountType":1,"userID":"02568b54-1f84-40cb-8540-a15ef3cd5b54","email":"carl@hotmail.com","phoneNo":"458454154","passwordHash":"$2a$13$Ir/GTtOPHZMG7Z5hVUDr9eTWcHvFCoCaAeEr8PCCM938UxdSFo9OW"}

@@ -65,7 +65,7 @@ public abstract class Account {
     public static Account getAccount(String userID) {
         Account acc = accountMap.get(userID);
         if (acc == null) {
-            throw new NoSuchElementException("no account was found with ID: "+userID);
+            throw new NoSuchElementException("No account was found with ID: "+userID);
         }
         return acc;
     }
@@ -77,7 +77,7 @@ public abstract class Account {
     public static Account getAccountByEmail(String email) {
         String userID = emailMap.get(email);
         if (userID == null) {
-            throw new NoSuchElementException("no account was found with email: "+email);
+            throw new NoSuchElementException("No account was found with email: "+email);
         }
         return getAccount(userID);
     }
@@ -238,6 +238,7 @@ public abstract class Account {
             loadAccountData("Accounts.txt");
         } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
 
         Account acc = getAccountByEmail("103641415@student.swin.edu.au");
@@ -249,6 +250,7 @@ public abstract class Account {
             saveAccountData("Accounts.txt");
         } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
 
     }

@@ -1,6 +1,7 @@
 package shop;
 
 import java.util.Scanner;
+import java.io.IOException;
 import java.util.*;
 
 public class Menu {	
@@ -10,12 +11,17 @@ public class Menu {
 	
 	//Static class instances
 	static ShoppingCart shoppingCart = new ShoppingCart();
-	static Customer customer = new Customer("Jhon", "44444", "jhon@hotmail.com", "0406815854", "23 park st, St Kilda VIC 3120");
-	static Admin admin = new Admin ("Carl", "554444", "carl@hotmail.com", "458454154");
 	static Invoice invoice = new Invoice();
 	
 	
 	public static void main(String[] args) {
+		try {
+        	Account.loadAccountData("Accounts.txt");
+        } catch (IOException e) {
+        	e.printStackTrace();
+            return;
+        }
+
 		ReadTxtFile file = new ReadTxtFile();
 		ArrayList<Product> products = file.ReadProducts();
 		Catalogue catalogue = new Catalogue(products);
@@ -26,9 +32,10 @@ public class Menu {
 		Menu menu = new Menu();	
 		ShoppingCart shopCart = new ShoppingCart();
 		
+		Account admin = Account.getAccountByEmail("carl@hotmail.com");
 		
 		//Execute login 
-		menu.login(); 
+		Account customer = menu.login(); 
 		//Test to validate displayShopping cart
 		shopCart = menu.addItemsShoppingCart();
 		
@@ -46,7 +53,7 @@ public class Menu {
 				menu.manageShoppingCart(shopCart);
 				break;			
 			case 3:				 
-				menu.CheckOut(shopCart);
+				menu.CheckOut(shopCart, (Customer) customer, (Admin) admin);
 				
 				//System.out.println("1. Checkout in construction");
 				break;
@@ -60,6 +67,13 @@ public class Menu {
 		}
 		while(userSelection != 4);
 		sc.close();
+
+		try {
+			Account.saveAccountData("Accounts.txt");
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
 		
 	}
 	
@@ -121,28 +135,36 @@ public class Menu {
 	}
 	
 	//Test login with user credentials
-	public void login() {
+	public Account login() {
 		
-		String userName;
+		String userEmail;
 		String password;
 		
 		System.out.println("Login to All Your Healthy Foods store!");
 		System.out.println("---------------------------------------\n");
 		
-		System.out.print("Enter user name => ");
-		userName = sc.nextLine();
+		System.out.print("Enter email => ");
+		userEmail = sc.nextLine();
 
 		System.out.print("Enter password => ");
-		password = sc.nextLine();			
-		
-		//Check if password match with saved information
-		if ("user".equals(userName) && "password".equals(password)) {
-	        System.out.println("User successfully logged-in\n ");
-			//create customer here***
-	    } else {
-	        System.out.println("Invalid userName or password please try again\n");
-	        login();
-	    }
+		password = sc.nextLine();
+
+		try {
+			Account account = Account.getAccountByEmail(userEmail);
+			//Check if password match with saved information
+			if (account.checkPassword(password)) {
+	        	System.out.println("User successfully logged-in\n ");
+				return account;
+				
+	    	} else {
+	        	System.out.println("Invalid email or password please try again\n");
+	        	return login();
+	    	}
+
+		} catch (NoSuchElementException e) { // email address not found
+			System.out.println(e.getMessage()+". Please try again.");
+			return login();
+		}
 	}
 	
 	//Add items manually to shopping cart
@@ -228,7 +250,7 @@ public class Menu {
     
 	
 	
-	public void CheckOut(ShoppingCart shopCart) {
+	public void CheckOut(ShoppingCart shopCart, Customer customer, Admin admin) {
 		
 		String optionSelected;
 		
