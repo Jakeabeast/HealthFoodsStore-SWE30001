@@ -153,7 +153,7 @@ public class Menu {
 			Account account = Account.getAccountByEmail(userEmail);
 			//Check if password match with saved information
 			if (account.checkPassword(password)) {
-	        	System.out.printf("Welcome %s.\n\n", account.getAccountName());
+	        	System.out.println("User successfully logged-in\n ");
 				return account;
 				
 	    	} else {
@@ -167,7 +167,7 @@ public class Menu {
 		}
 	}
 	
-	//Add items manually to shopping cart
+	//Add items manually to test shopping cart
 	public ShoppingCart addItemsShoppingCart() {
 		
 		ShoppingCart shopCart = new ShoppingCart();
@@ -188,7 +188,57 @@ public class Menu {
         shopCart.addCart(item5);
         
         return shopCart;
-	}	
+	}
+	
+	//Add items from catalog to test shopping cart
+		public void addItemToShoppingCart(Catalogue shopCatalogue) {
+			
+			String optionSelected;	
+			String itemSelected;
+			int quantity = 0;
+			
+			ShoppingCart shopCart = new ShoppingCart(); 
+			Product product = new Product();
+			
+			System.out.println("Would you like to add a product to the shopping cart?: (yes/no)");
+			optionSelected = sc.nextLine();
+			
+			switch(optionSelected) {
+			
+			case "yes":
+				
+				System.out.println("Type the item you would like to add?");
+				itemSelected = sc.nextLine();
+				
+				System.out.println("How many items would you like to add?");
+				quantity = sc.nextInt();
+				sc.nextLine();
+				
+				product = shopCatalogue.getProduct(itemSelected);
+				
+				if(product.getDescription().contains(itemSelected)) {				
+					
+					//Add items to the cart
+					CartItem cartItem = new CartItem(product.getID(), product.getDescription(), product.getPrice(), quantity);
+			        shopCart.addCart(cartItem);
+			        System.out.println("Your item " + itemSelected + " has been added!\n");	
+				} else {
+					
+					System.out.println("Sorry item " + itemSelected + " is invalid\n");	
+				}
+				
+							
+				break;
+			case "no":
+				//Return to main menu
+				this.menuSelection();
+				break;		
+			default:
+				System.out.println("Invalid option, please try again\n");
+				break;
+				
+			}
+		}
 	
     
     //Manage update and remove items from user's shopping cart 
@@ -308,16 +358,18 @@ public class Menu {
     	int optionSelected = 0;
     	String searchTerm = "";
     	String searchCategory = "";
+    	String chosenProduct;
     	
     	
     	System.out.println("---------------------------------------\n");
 		
-		System.out.println("Catalogue Search Menu:\n ");
-		System.out.println("1.Search By Name");
-		System.out.println("2.Search By Category");
-		System.out.println("3.Back to Main Menu");
+		System.out.println("Manage Shopping Cart:\n ");
+		System.out.println("1.Search By Name\n");
+		System.out.println("2.Search By Category\n");
+		System.out.println("3.Display all products\n");
+		System.out.println("4.Back to Main Menu\n");
 		
-		System.out.println("Select A Search Method: \n");
+		System.out.println("Select an option: \n");
 		optionSelected = sc.nextInt();
     	sc.nextLine();
     	
@@ -327,14 +379,21 @@ public class Menu {
     		System.out.println("What is the Name of the Product you want to Search: \n");
     		searchTerm = sc.nextLine();
     		shopCatalogue.SearchByName(searchTerm);
-    	break;
+    		this.addItemToShoppingCart(shopCatalogue);
+    		break;
     	
     	case 2:
     		System.out.println("What Category would you like to Search For: \n");
     		searchCategory = sc.nextLine();
     		shopCatalogue.SearchByCategory(searchCategory);
-    		
+    		this.addItemToShoppingCart(shopCatalogue);
+    		break;
     	case 3:					
+			shopCatalogue.displayProducts();			
+			this.addItemToShoppingCart(shopCatalogue);
+			break;
+			
+    	case 4:					
 			this.menuSelection();
 			break;
 			
