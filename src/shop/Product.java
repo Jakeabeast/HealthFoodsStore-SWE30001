@@ -17,6 +17,9 @@ private double _productPrice;
         _productDescription = productDescription;
         _productPrice = productPrice;
     }
+    
+    public Product() {}
+        
 
     //getters
     public String getID()

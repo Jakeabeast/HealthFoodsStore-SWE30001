@@ -20,6 +20,10 @@ public class CartItem {
         quantity = qty;
     }
     
+    public CartItem() {        
+        
+    }
+    
 
     public String getItemId() {
         return itemId;

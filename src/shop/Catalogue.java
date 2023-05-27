@@ -24,6 +24,21 @@ public class Catalogue
     	return null; // no product found
     }
     
+ // search for an product using the name
+    public Product getProduct(String searchName)
+    {
+    	for(Product p: _products)
+    	{
+    		if(p.getName().contains(searchName))
+    				{
+    					//return product
+    					return p;
+    					
+    				}
+    	}
+    	return null; // no product found
+    }
+    
     //search for an product using the category type
     public Product SearchByCategory(String searchCategory)
     {
@@ -42,6 +57,17 @@ public class Catalogue
     public void addProduct(Product newProduct)
     {
     	_products.add(newProduct);
+    }
+    
+    public void displayProducts() {
+    	
+    	ReadTxtFile file = new ReadTxtFile();
+		ArrayList<Product> products = file.ReadProducts();    	
+    	
+    	 for (Product p : products) {
+    		 
+    		 p.printProduct();
+    	 }
     }
     
   //-------------------Test--------------------
